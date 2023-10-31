@@ -1,0 +1,12 @@
+.home-container{
+    max-width: 1250px;
+    margin: 0 auto; 
+    padding: 10px;
+}
+.content{
+    background-color:rgb(218, 216, 216);
+    height: 200px;
+    border-radius: 5px;
+    display: flex;
+    
+}

@@ -1,24 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
-
+import {Route,Routes } from 'react-router-dom';
+import Header from "./components/Header-Part/Header"
+import Login from "./components/login/Login"
+import Home from "./components/home-page/Home"
+import Markesheet from "./components/marksheet-section/marksheet/Markesheet"
+import MarksheetList from "./components/marksheet-section/marksheet-list/MarksheetList"
+import Collage from "./components/collage-section/collage/Collage"
+import CollageList from "./components/collage-section/collage-list/CollageList"
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Header/>
+    <Routes>
+      <Route path='/' element={<Login/>}/>
+      <Route path='/welcome' element={<Home/>}/>
+      <Route path='/marksheet' element={ <Markesheet/>}/>
+      <Route path='/marksheet-list' element={ <MarksheetList/>}/>
+      <Route path='/college' element={ <Collage/>}/>
+      <Route path='/college-list' element={ <CollageList/>}/>
+      <Route/>
+    </Routes>
+
+    </>
   );
 }
 
