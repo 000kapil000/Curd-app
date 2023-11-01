@@ -1,0 +1,10 @@
+.container{
+    max-width: 1250px; /* Set a maximum width for the content */
+  margin: 0 auto; /* Center the content horizontally */
+  padding: 10px;
+}
+
+/* input{
+    height: 30px;
+    margin-left: 40px;
+} */

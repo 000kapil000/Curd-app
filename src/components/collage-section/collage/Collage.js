@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import React, { useState ,useEffect} from 'react'
+import { useNavigate,useParams } from 'react-router-dom';
 import axios from 'axios';
 const Collage = () => {
   const navigate = useNavigate();
@@ -8,14 +8,14 @@ const [address,setAddress]=useState('')
 const [phoneNo,setphoneNo] =useState()
 const [City,setCity]=useState()
 const [state,setState]=useState()
-
+const [collageID,setCollageID]=useState()
   function Searchbtn(){
      navigate('/college-list')
   }
 const HandleSaveData=(e)=>{
 const data={
-"id":null,
-"name":collageName
+"id":collageID,
+"name":collageName 
 ,"address":address,
 "state":state,
 "city":City,
@@ -30,6 +30,29 @@ const data={
     
   });
 }
+
+
+const {id}=useParams()
+  console.log("id",id);
+  useEffect(()=>{
+  
+    axios.get(`https://api.sunilos.com/ORSP10/College/get/${id}`, )
+    .then((response) => {
+      const fatechedData=response.data.result.data
+      console.log("resp",fatechedData);
+     setCollageName(fatechedData.name)
+     setAddress(fatechedData.address)
+     setState(fatechedData.state)
+     setCity(fatechedData.city)
+     setphoneNo(fatechedData.phoneNo)
+     setCollageID(fatechedData.id)
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      
+    })
+  },[])
+  
   return (
     <div>
     <h1>Collage</h1>
@@ -68,7 +91,6 @@ const data={
       />
       <button onClick={HandleSaveData}>Save</button>
       <button onClick={Searchbtn}>Search</button>
-
   </div>
   )
 }

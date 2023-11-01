@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+import { useNavigate ,useParams } from "react-router-dom";
 import axios from 'axios';
+import './Marksheet.css';
+
 const Markesheet = () => {
   const navigate = useNavigate();
   const [rollno,setRollNo]=useState("0")
@@ -32,8 +34,32 @@ const data={
     
   });
 }
+
+
+const {id}=useParams()
+console.log("id",id);
+useEffect(()=>{
+
+  axios.get(`https://api.sunilos.com/ORSP10/Marksheet/get/${id}`, )
+  .then((response) => {
+    const fatechedData=response.data.result.data
+    console.log("resp",fatechedData);
+  
+     setStudentID(fatechedData.id)
+    setRollNo(fatechedData.rollNo)
+    setSudentName(fatechedData.name)
+    setPhysicMarks(fatechedData.physics)
+    setChemistryMarks(fatechedData.chemistry)
+    setMathsMarks(fatechedData.maths)
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+    
+  })
+},[])
   return (
-    <div>
+    
+    <div className='container'>
       <h1>Marksheet</h1>
       <label >Student ID</label>
         <input
@@ -77,83 +103,9 @@ const data={
         <br /><br />
         <button onClick={HandleSaveData}>Save</button>
         <button onClick={Searchbtn}>Search</button>
-
     </div>
   )
 }
 
 export default Markesheet
 
-// {"id":null,"rollNo":"0","name":"","physics":0,"chemistry":0,"maths":0,"studentId":1}
-
-
-// create a page with input field  sutdent rollno name physic marks chemistry marks and meths marks on click of save button data shuld be post to https://api.sunilos.com/ORSP10/Marksheet/save this api   
-
-// MarkSheetForm.js
-
-// import React, { useState } from 'react';
-// import axios from 'axios';
-
-// function MarkSheetForm() {
-//   const [rollNo, setRollNo] = useState('');
-//   const [name, setName] = useState('');
-//   const [physicsMarks, setPhysicsMarks] = useState('');
-//   const [chemistryMarks, setChemistryMarks] = useState('');
-//   const [mathMarks, setMathMarks] = useState('');
-
-//   const handleSave = () => {
-//     // Create a data object with the input values
-//     const data = {
-//       rollNo,
-//       name,
-//       physicsMarks,
-//       chemistryMarks,
-//       mathMarks,
-//     };
-
-//     // Send a POST request to the API using Axios
-//     axios
-//       .post('https://api.sunilos.com/ORSP10/Marksheet/save', data, {
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//       })
-//       .then((response) => {
-//         console.log('Data saved successfully:', response.data);
-//         // You can add further actions on success
-//       })
-//       .catch((error) => {
-//         console.error('Error:', error);
-//         // Handle errors here
-//       });
-//   };
-
-//   return (
-//     <div>
-//       <h2>Student Marksheet Form</h2>
-//       <div>
-//         <label>Roll Number:</label>
-//         <input type="text" value={rollNo} onChange={(e) => setRollNo(e.target.value)} />
-//       </div>
-//       <div>
-//         <label>Name:</label>
-//         <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-//       </div>
-//       <div>
-//         <label>Physics Marks:</label>
-//         <input type="number" value={physicsMarks} onChange={(e) => setPhysicsMarks(e.target.value)} />
-//       </div>
-//       <div>
-//         <label>Chemistry Marks:</label>
-//         <input type="number" value={chemistryMarks} onChange={(e) => setChemistryMarks(e.target.value)} />
-//       </div>
-//       <div>
-//         <label>Math Marks:</label>
-//         <input type="number" value={mathMarks} onChange={(e) => setMathMarks(e.target.value)} />
-//       </div>
-//       <button onClick={handleSave}>Save</button>
-//     </div>
-//   );
-// }
-
-// export default MarkSheetForm;

@@ -14,9 +14,11 @@ function App() {
     <Routes>
       <Route path='/' element={<Login/>}/>
       <Route path='/welcome' element={<Home/>}/>
+      <Route path='/marksheet/:id' element={ <Markesheet/>}/>
       <Route path='/marksheet' element={ <Markesheet/>}/>
       <Route path='/marksheet-list' element={ <MarksheetList/>}/>
       <Route path='/college' element={ <Collage/>}/>
+      <Route path='/college/:id' element={ <Collage/>}/>
       <Route path='/college-list' element={ <CollageList/>}/>
       <Route/>
     </Routes>
